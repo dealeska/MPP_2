@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>  
+    <title>Todo</title>
+</head>
+
+
+<body style="background:gray;">
+    <main>
+        <div class="mdc-data-table" style="width:100%; background:pink">
+            <div class="mdc-data-table__table-container" style="overflow-y:scroll;max-height:670px">
+                <table class="mdc-data-table__table" aria-label="Tasks">
+                    <tbody class="mdc-data-table__content">
+                    <tr class="mdc-data-table__row" style="border-bottom:solid">
+                        <th class="mdc-data-table__cell" scope="row" style="font-weight:bold;color:dark">Name</th>
+                        <td class="mdc-data-table__cell mdc-data-table__cell--numeric" style="text-align:left;font-weight:bold;color:dark">Description</td>
+                        <td class="mdc-data-table__cell mdc-data-table__cell--numeric" style="text-align:left;font-weight:bold;color:dark;margin-left:10px">Status</td>
+                        <td class="mdc-data-table__cell" style="font-weight:bold;color:dark">DateTime</td>
+                        <td class="mdc-data-table__cell" style="font-weight:bold;color:dark">File</td>
+                        <td class="mdc-data-table__cell" style="font-weight:bold;color:dark">Compete</td>
+                        <td class="mdc-data-table__cell" style="font-weight:bold;color:dark">Delete</td>
+                    </tr>
+
+                    each task in todos
+                        - var dayDiff = (task.expires.getTime() - (new Date()).getTime()) / (1000 * 3600 * 24)
+                        <tr class="mdc-data-table__row">
+                        <th class="mdc-data-table__cell" scope="row">#{task.name}</th>
+                        <td class="mdc-data-table__cell mdc-data-table__cell--numeric" style="text-align:left">#{task.description}</td>
+                        <td class="mdc-data-table__cell mdc-data-table__cell--numeric" style="text-align:left"> 
+                        - var dayDiff = (task.expires.getTime() - (new Date()).getTime()) / (1000 * 3600 * 24)
+                        - if (task.isComplete) {
+                            <h5 style="margin-left:-10px"><span class="badge badge-success" style="color:Green;">Complete</span></h5>
+                        - } else if (dayDiff > 0) {
+                            <h5 style="margin-left:-10px"><span class="badge badge-warning" style="color:Orange;">Soon</span></h5>
+                        - } else if (dayDiff <= 0) {
+                            <h5 style="margin-left:-10px"><span class="badge badge-danger" style="color:Red;">Expired</span></h5>
+                        - }
+                        </td>
+                        
+                        
+                            <td class="mdc-data-table__cell">#{moment(task.expires).format("DD.MM.YYYY HH:mm")}</td>
+                       
+                            
+                        
+                        - if (task.file) {
+                            <td class="mdc-data-table__cell">File: <a href="download/#{task.id}/#{task.file.filename}">#{task.file.originalname}</a></td>
+                        - } else {
+                            <td class="mdc-data-table__cell"/>
+                        - }
+                        - if (!task.isComplete) {
+                            <td class="mdc-data-table__cell">
+                                <form action="/" method="post">
+                                    <div class="mdc-touch-target-wrapper">
+                                        <button class="mdc-button mdc-button--touch" name="complete-task" value="#{task.id}" style="background:antiquewhite;color:darkred">
+                                            <span class="mdc-button__ripple"></span>
+                                            <span class="mdc-button__touch"></span>
+                                            <span class="mdc-button__label">Complete</span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </td>
+                        - } else {
+                            <td class="mdc-data-table__cell">
+                                <form action="/" method="post">
+                                    <div class="mdc-touch-target-wrapper">
+                                        <button class="mdc-button mdc-button--touch" name="complete-task" value="#{task.id}" style="color:gray" disabled>                                            
+                                            <span class="mdc-button__label">Complete</span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </td>
+                        - }
+                        <td class="mdc-data-table__cell">
+                            <form action="/" method="post">
+                                <div class="mdc-touch-target-wrapper">
+                                    <button class="mdc-button mdc-button--touch" name="delete-task" value="#{task.id}" style="background:antiquewhite;color:darkred">
+                                        <span class="mdc-button__ripple"></span>
+                                        <span class="mdc-button__touch"></span>
+                                        <span class="mdc-button__label">Delete</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mdc-data-table__table-container" style="position:fixed;bottom:5px;">
+                <form action="/"  method="post" enctype="multipart/form-data" id="add-task">
+                    <table class="mdc-data-table__table" aria-label="Add task">
+                        <tbody class="mdc-data-table__content">
+                            <tr class="mdc-data-table__row">
+                            <th class="mdc-data-table__cell" scope="row">
+                                <label class="mdc-text-field mdc-text-field--filled" style="height:50px">
+                                    <span class="mdc-text-field__ripple"></span>
+                                    <span class="mdc-floating-label" id="my-label-id" style="bottom:-25px;font-size:small;font-weight:bolder;">Task name</span>
+                                    <input class="mdc-text-field__input" type="text" aria-labelledby="my-label-id" placeholder="Task name" name="task-name">
+                                </label>
+                            </th>                   
+                            <th class="mdc-data-table__cell" scope="row">
+                                <label class="mdc-text-field mdc-text-field--filled" style="height:50px">
+                                    <span class="mdc-text-field__ripple"></span>
+                                    <span class="mdc-floating-label" id="my-label-id" style="bottom:-25px;font-size:small;font-weight:bolder;">Task description</span>
+                                    <input class="mdc-text-field__input" type="text" aria-labelledby="my-label-id" placeholder="Task description" name="task-description">
+                                </label>
+                            </th>
+                            <th class="mdc-data-table__cell" scope="row">
+                                <label class="mdc-text-field mdc-text-field--filled" style="height:50px">
+                                    <span class="mdc-text-field__ripple"></span>
+                                    <span class="mdc-floating-label" id="my-label-id" style="bottom:-25px;font-size:small;font-weight:bolder;">DateTime</span>
+                                    <input class="mdc-text-field__input" aria-labelledby="my-label-id" type="datetime-local" placeholder="Task expires" name="task-expires" value="#{moment().format('YYYY-MM-DDTHH:mm')}">
+                                </label>
+                            </th>
+                            <th class="mdc-data-table__cell" scope="row">
+                                <label class="mdc-text-field mdc-text-field--filled" style="height:50px">
+                                    <span class="mdc-text-field__ripple"></span>
+                                    <span class="mdc-floating-label" id="my-label-id" style="bottom:-25px;font-size:small;font-weight:bolder;">Task file</span>
+                                    <input class="mdc-text-field__input" type="file" name="task-files">
+                                </label>
+                            </th>
+                            <th class="mdc-data-table__cell" scope="row">
+                                <div class="mdc-touch-target-wrapper">
+                                    <button class="mdc-button mdc-button--touch" name="add-task" style="background:antiquewhite;color:darkred">
+                                        <span class="mdc-button__ripple"></span>
+                                        <span class="mdc-button__touch"></span>
+                                        <span class="mdc-button__label">Add</span>                                        
+                                    </button>
+                                </div>
+                            </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+
+
+</html>
