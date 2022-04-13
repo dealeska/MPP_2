@@ -148,7 +148,7 @@ function getTask(task) {
     expiredTag = `<td class="mdc-data-table__cell">${date}</td>`
 
     let fileTag = "";
-    if (task.file !== undefined) {
+    if (task.file !== undefined && task.file !== null) {
         fileTag = `<td class="mdc-data-table__cell">File: <a href="download/${task.id}/${task.file.filename}">${task.file.originalname}</a></td>`;
     }
     else {

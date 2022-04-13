@@ -6,7 +6,6 @@ const Task = require('./task')
 const fs = require('fs')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
-const { parse } = require('path')
 
 const dataPath = 'data.json'
 const idPath = 'id.json'
