@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "login": "alesya",
+    "hashedPassword": "$2a$10$K4QAal.nbs.gtXbyosRsv.zKc19cXzSfxDYYez5rLKVfVWbihB4rK"
+  },
+  {
+    "id": 2,
+    "login": "1",
+    "hashedPassword": "$2a$10$bdTJs0pmeWwbEGCh3rIhnOwjJ23qnAI3edMpI6mvnT.aabC4tYMmu"
+  },
+  {
+    "id": 3,
+    "login": "lesha",
+    "hashedPassword": "$2a$10$pmQnbWHxIb4UtLRCrchlkehjS4ZzW6vncI1KU0qhFATtlOaCPA4NW"
+  }
+]
